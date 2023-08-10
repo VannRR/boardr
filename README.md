@@ -19,8 +19,7 @@ npm run build
 ## Run Locally
 
 ```shell
-npm install http-server
-http-server -o
+npm run preview
 ```
 
 ## Instructions
