@@ -6,6 +6,9 @@
 
 boardr is a simple, single-page web app that helps you practice the position of notes on a stringed instrument's fret/fingerboard and learn the corresponding notes on a musical staff. The app uses the [Pitchy Library](https://github.com/ianprime0509/pitchy) for pitch detection.
 
+## Demo
+You can check out a live version of this web app at [https://vannrr.github.io/boardr/](https://vannrr.github.io/boardr/)
+
 ## Build
 
 ```shell
