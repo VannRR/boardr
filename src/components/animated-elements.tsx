@@ -16,8 +16,6 @@ import { AnimatedElementsProps, NoteStaffProps, Note } from "../types";
 const notes = new Notes();
 const totalNotes = 48; // multiples of 24 would be best
 const columns = 12; // multiples of 4 would be best
-const primaryColor = "#c38fff";
-const foregroundColor = "#e4e4e4";
 const getNoteByFreqMarginOfError = 0.03; // 1.0 = 100%
 const msPerInterval = 125;
 const msUntilClearNote = 1000;
@@ -27,6 +25,15 @@ let tick = 0;
 let loopID = 0;
 let prevNote: Note | null = null;
 let flat = false;
+
+// light theme
+let primaryColor = "#6200EE";
+let foregroundColor = "#121212";
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  // dark theme
+  primaryColor = "#BB86FC";
+  foregroundColor = "#e4e4e4";
+}
 
 const NotesDisplay = (props: NoteStaffProps) => {
   const grid = (
