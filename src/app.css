@@ -85,6 +85,7 @@ section {
   position: absolute;
   top: var(--margin);
   right: var(--margin);
+  font-size: 1.1vw;
 }
 
 #tuning-input {
