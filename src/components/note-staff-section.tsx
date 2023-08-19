@@ -393,8 +393,6 @@ export function NoteStaff(props: NoteStaffProps) {
   const getCanvas = (canvas: Canvas) => {
     if (!canvas) return null;
     const ctx = canvas.getContext("2d") as Ctx;
-    ctx.fillStyle = props.color;
-    ctx.strokeStyle = props.color;
     ctx.textAlign = "center";
     return canvas;
   };
@@ -403,12 +401,16 @@ export function NoteStaff(props: NoteStaffProps) {
     if (!layers[0]) return;
     const ctx = layers[0].getContext("2d") as Ctx;
     ctx.font = `${octaveSymbolHeight}px monospace`;
+    ctx.fillStyle = props.colors.value.foreground;
+    ctx.strokeStyle = props.colors.value.foreground;
     drawBackground(ctx, props.clef, props.columns, averageOctave.value);
   });
 
   useSignalEffect(() => {
     if (!layers[1]) return;
     const ctx = layers[1].getContext("2d") as Ctx;
+    ctx.fillStyle = props.colors.value.foreground;
+    ctx.strokeStyle = props.colors.value.foreground;
     drawForeground(
       ctx,
       props.noteArray.value,
@@ -422,7 +424,7 @@ export function NoteStaff(props: NoteStaffProps) {
   useSignalEffect(() => {
     if (!layers[2]) return;
     const ctx = layers[2].getContext("2d") as Ctx;
-    ctx.fillStyle = props.highlightColor;
+    ctx.fillStyle = props.colors.value.primary;
     drawHighlight(
       ctx,
       props.noteArray.value,

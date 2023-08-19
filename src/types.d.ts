@@ -52,6 +52,7 @@ export interface AnimatedElementsProps {
   userInput: UserInput;
   started: Signal<Started>;
   audioInputIsActive: Signal<boolean>;
+  darkMode: Signal<boolean>;
 }
 
 export interface CertaintyInputProps {
@@ -67,12 +68,11 @@ export interface NoteGridProps {
   guitarString: GuitarStr;
   index: Signal<Index>;
   columns: Columns;
-  highlightColor: Color;
+  colors: Signal<{ primary: Color, foreground: Color }>;
 }
 
 export interface NoteStaffProps extends NoteGridProps {
   clef: Clef;
-  color: Color;
 }
 
 interface OptionsInputProps {
@@ -101,10 +101,14 @@ interface ChannelSelectProps {
 
 interface PitchMeterProps {
   difference: Signal<Diff>;
-  color: Color;
+  colors: Signal<{ primary: Color, foreground: Color }>;
 }
 
 interface StartButtonProps {
   started: Signal<Started>;
   audioInputIsActive: Signal<boolean>;
+}
+
+interface ThemeSwitchButtonProps {
+  darkMode: Signal<boolean>;
 }

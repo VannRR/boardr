@@ -4,6 +4,7 @@ import { PitchDetector } from "pitchy";
 
 import { AudioInput } from "./modules/audio-input";
 
+import { ThemeSwitchButton } from "./components/theme-switch-button";
 import { AnimatedElements } from "./components/animated-elements";
 import { Options } from "./components/options";
 
@@ -40,7 +41,16 @@ const setUserInput: SetUserInput = (newValues) => {
 
 export function App() {
   const started = useSignal(false);
+  const darkMode = useSignal(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
   const audioInputIsActive = useSignal(audioInput.isActive());
+
+  useSignalEffect(() => {
+    if (darkMode.value) {
+      document.body.setAttribute('data-theme', 'dark');
+    } else {
+      document.body.removeAttribute('data-theme');
+    }
+  });
 
   useSignalEffect(() => {
     if (audioInputIsActive.value === false && started.value === true) {
@@ -50,12 +60,14 @@ export function App() {
 
   return (
     <>
+      <ThemeSwitchButton darkMode={darkMode} />
       <AnimatedElements
         started={started}
         audioInput={audioInput}
         userInput={userInput}
         audioInputIsActive={audioInputIsActive}
         pitchDetector={pitchDetector}
+        darkMode={darkMode}
       />
       <Options
         started={started}

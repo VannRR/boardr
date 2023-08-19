@@ -66,21 +66,22 @@ export function PitchMeter(props: PitchMeterProps) {
 
   const getCanvas = (canvas: Canvas) => {
     if (!canvas) return null;
-    const ctx = canvas.getContext("2d") as Ctx;
-    ctx.fillStyle = props.color;
-    ctx.strokeStyle = props.color;
     return canvas;
   };
 
   useSignalEffect(() => {
     if (!layers[0]) return;
     const ctx = layers[0].getContext("2d") as Ctx;
+    ctx.fillStyle = props.colors.value.foreground;
+    ctx.strokeStyle = props.colors.value.foreground;
     drawBackground(ctx);
   });
 
   useSignalEffect(() => {
     if (!layers[1]) return;
     const ctx = layers[1].getContext("2d") as Ctx;
+    ctx.fillStyle = props.colors.value.foreground;
+    ctx.strokeStyle = props.colors.value.foreground;
     drawForeground(ctx, props.difference.value);
   });
 

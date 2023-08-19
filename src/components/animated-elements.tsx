@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useSignal, useSignalEffect } from "@preact/signals";
+import { useSignal, useSignalEffect, useComputed } from "@preact/signals";
 
 import { Notes } from "../modules/notes";
 
@@ -26,15 +26,6 @@ let loopID = 0;
 let prevNote: Note | null = null;
 let flat = false;
 
-// light theme
-let primaryColor = "#6200EE";
-let foregroundColor = "#121212";
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  // dark theme
-  primaryColor = "#BB86FC";
-  foregroundColor = "#e4e4e4";
-}
-
 const NotesDisplay = (props: NoteStaffProps) => {
   const grid = (
     <NoteGrid
@@ -42,7 +33,7 @@ const NotesDisplay = (props: NoteStaffProps) => {
       guitarString={props.guitarString}
       index={props.index}
       columns={props.columns}
-      highlightColor={props.highlightColor}
+      colors={props.colors}
     />
   );
   const staff = (
@@ -52,8 +43,7 @@ const NotesDisplay = (props: NoteStaffProps) => {
       index={props.index}
       columns={props.columns}
       clef={props.clef}
-      color={props.color}
-      highlightColor={props.highlightColor}
+      colors={props.colors}
     />
   );
 
@@ -84,6 +74,21 @@ function AnimatedElementsStarted(props: AnimatedElementsProps) {
   const currentNote = useSignal<Note | null>(null);
 
   const certaintyThreshold = useSignal(0.99);
+
+  const colors = useComputed(() => {
+    if (props.darkMode.value === false) {
+      return {
+        primary: "#6200EE",
+        foreground: "#121212",
+      }
+
+    } else {
+      return {
+        primary: "#BB86FC",
+        foreground: "#e4e4e4",
+      }
+    }
+  });
 
   flat = notes.isFlat(tuning[0].note);
 
@@ -161,7 +166,7 @@ function AnimatedElementsStarted(props: AnimatedElementsProps) {
     <>
       <CurrentNoteSection currentNote={currentNote} />
       <section id="pitch-meter-and-certainty-section" className="section-small">
-        <PitchMeter color={foregroundColor} difference={difference} />
+        <PitchMeter colors={colors} difference={difference} />
         <CertaintyInput certaintyThreshold={certaintyThreshold} />
       </section>
       <StopButton started={started} audioInputIsActive={audioInputIsActive} />
@@ -171,8 +176,7 @@ function AnimatedElementsStarted(props: AnimatedElementsProps) {
         index={noteIndex}
         columns={columns}
         clef={notesDisplayFormat}
-        color={foregroundColor}
-        highlightColor={primaryColor}
+        colors={colors}
       />
     </>
   );
@@ -192,6 +196,7 @@ export function AnimatedElements(props: AnimatedElementsProps) {
           pitchDetector={props.pitchDetector}
           started={props.started}
           audioInputIsActive={props.audioInputIsActive}
+          darkMode={props.darkMode}
         />
       </>
     );

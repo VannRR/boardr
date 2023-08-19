@@ -14,7 +14,7 @@ import {
 
 const githubLink = (
   <a id="github-link" href="https://github.com/vannrr/boardr#readme">
-    Project's Github
+    Project&apos;s Github
   </a>
 );
 

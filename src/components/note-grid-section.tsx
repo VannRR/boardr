@@ -38,7 +38,7 @@ export function NoteGrid(props: NoteGridProps) {
           noteArray={props.noteArray.value}
           index={props.index.value}
           columns={props.columns}
-          highlightColor={props.highlightColor}
+          highlightColor={props.colors.value.primary}
         />
       </section>
     </>
