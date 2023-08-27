@@ -46,6 +46,8 @@ const middle = rows / 2;
 const staffTop = middle - 6;
 const staffBottom = middle + 2;
 
+const naturals = 7;
+
 const normalOctave = 4;
 const bassOctave = 3;
 
@@ -95,13 +97,13 @@ const getNoteStaffIndex = (note: Note, clef: Clef, averageOctave: Octave) => {
   const adjustedIndex = -noteIndex + sharp;
 
   if (clef === "treble") {
-    return adjustedIndex + middle - 1 + 7 * (averageOctave - normalOctave + 1);
+    return adjustedIndex + middle - 1 + naturals * (averageOctave - normalOctave + 1);
   } else if (clef === "alto") {
-    return adjustedIndex + middle - 7 + 7 * (averageOctave - normalOctave + 1);
+    return adjustedIndex + middle - 7 + naturals * (averageOctave - normalOctave + 1);
   } else if (clef === "baritone") {
-    return adjustedIndex + middle - 11 + 7 * (averageOctave - normalOctave + 1);
+    return adjustedIndex + middle - 11 + naturals * (averageOctave - normalOctave + 1);
   } else {
-    return adjustedIndex + middle - 13 + 7 * (averageOctave - bassOctave + 1);
+    return adjustedIndex + middle - 13 + naturals * (averageOctave - bassOctave + 1);
   }
 };
 
